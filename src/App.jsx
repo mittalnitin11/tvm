@@ -1,16 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 
 const MENU_ITEMS = [
-  { id: 1, cat: 'food', name: 'Loaded Waffle', price: 80, badgeClass: 'bh', badgeText: '🔥 Bestseller', emoji: '🧇', img: '/loaded_waffle.png', desc: 'Crispy golden waffle with chocolate drizzle, fresh fruits & whipped cream cloud on top.', grad: 'linear-gradient(135deg,#FFF4DC,#FFE08A)' },
-  { id: 2, cat: 'food', name: 'Grill Sandwich', price: 70, badgeClass: 'bl', badgeText: '💛 Fan Fav', emoji: '🥪', img: '/grill_sandwich.png', desc: 'Fresh veggies, gooey cheese & secret green chutney stuffed and grilled to golden perfection.', grad: 'linear-gradient(135deg,#FFFBE0,#FFE080)' },
-  { id: 3, cat: 'food', name: 'Potato Spiral', price: 49, badgeClass: 'bn', badgeText: '✨ New Hit', emoji: '🌀', img: '/potato_spiral.png', desc: 'Whole potato twisted on a stick, fried and dusted with zingy masala & cheese powder blast.', grad: 'linear-gradient(135deg,#FFE8D4,#FFB87A)' },
-  { id: 4, cat: 'food', name: 'French Fries', price: 50, badgeClass: 'bh', badgeText: '🔥 Crispy', emoji: '🍟', img: '/french_fries.png', desc: 'Golden crispy fries — plain, peri-peri, cheesy or schezwan. Always piping hot & fresh!', grad: 'linear-gradient(135deg,#FFE0C4,#FFB07A)' },
-  { id: 5, cat: 'food', name: 'Steamed Momos', price: 60, badgeClass: 'bl', badgeText: '❤️ Must Try', emoji: '🥟', img: '/steamed_momos.png', desc: 'Juicy dumplings with fiery red chutney. Veg & paneer options — always steaming fresh!', grad: 'linear-gradient(135deg,#D8F5E4,#90E4BC)' },
-  { id: 6, cat: 'food', name: 'Masala Maggie with Vegies', price: 60, badgeClass: 'bl', badgeText: '🌙 Comfort', emoji: '🍜', img: '/masala_maggie.png', desc: 'Extra masala, loaded veggies & a squeeze of lime. The ultimate street food comfort bowl!', grad: 'linear-gradient(135deg,#FFF4DC,#FFD595)' },
-  { id: 7, cat: 'drinks', name: 'Cold Coffee', price: 60, badgeClass: 'bh', badgeText: '🔥 Chilled', emoji: '☕', img: '/cold_coffee.png', desc: 'Rich blended cold coffee with double espresso shot, topped with dreamy whipped cream.', grad: 'linear-gradient(135deg,#E4DCF8,#B8A4E8)' },
-  { id: 8, cat: 'drinks', name: 'Virgin Mojito', price: 60, badgeClass: 'bn', badgeText: '✨ Fresh', emoji: '🍹', img: '/virgin_mojito.png', desc: 'Super fresh mint lime mojito on crushed ice. Watermelon, lychee & classic mint variants!', grad: 'linear-gradient(135deg,#DCFAEC,#82E8AC)' },
-  { id: 9, cat: 'drinks', name: 'Shikanji', price: 30, badgeClass: 'bl', badgeText: '☀️ Zesty', emoji: '🍋', img: '/shikanji.png', desc: 'Traditional Indian lemonade with black salt, roasted cumin & fresh mint. Super refreshing!', grad: 'linear-gradient(135deg,#FFFDE0,#FFE07A)' },
-  { id: 10, cat: 'food', name: 'Peri-Peri Potato Spiral', price: 59, badgeClass: 'bn', badgeText: '✨ New Hit', emoji: '🌀', img: '/peri_peri_spiral.png', desc: 'Whole potato twisted on a stick, fried and dusted with zingy masala & cheese powder blast.', grad: 'linear-gradient(135deg,#FFE8D4,#FFB87A)' },
+  { id: 1, cat: 'food', name: 'Loaded Waffle', price: 80, badgeClass: 'bh', badgeText: '🔥 Bestseller', emoji: '🧇', img: 'loaded_waffle.png', desc: 'Crispy golden waffle with chocolate drizzle, fresh fruits & whipped cream cloud on top.', grad: 'linear-gradient(135deg,#FFF4DC,#FFE08A)' },
+  { id: 2, cat: 'food', name: 'Grill Sandwich', price: 70, badgeClass: 'bl', badgeText: '💛 Fan Fav', emoji: '🥪', img: 'grill_sandwich.png', desc: 'Fresh veggies, gooey cheese & secret green chutney stuffed and grilled to golden perfection.', grad: 'linear-gradient(135deg,#FFFBE0,#FFE080)' },
+  { id: 3, cat: 'food', name: 'Potato Spiral', price: 49, badgeClass: 'bn', badgeText: '✨ New Hit', emoji: '🌀', img: 'potato_spiral.png', desc: 'Whole potato twisted on a stick, fried and dusted with zingy masala & cheese powder blast.', grad: 'linear-gradient(135deg,#FFE8D4,#FFB87A)' },
+  { id: 4, cat: 'food', name: 'French Fries', price: 50, badgeClass: 'bh', badgeText: '🔥 Crispy', emoji: '🍟', img: 'french_fries.png', desc: 'Golden crispy fries — plain, peri-peri, cheesy or schezwan. Always piping hot & fresh!', grad: 'linear-gradient(135deg,#FFE0C4,#FFB07A)' },
+  { id: 5, cat: 'food', name: 'Steamed Momos', price: 60, badgeClass: 'bl', badgeText: '❤️ Must Try', emoji: '🥟', img: 'steamed_momos.png', desc: 'Juicy dumplings with fiery red chutney. Veg & paneer options — always steaming fresh!', grad: 'linear-gradient(135deg,#D8F5E4,#90E4BC)' },
+  { id: 6, cat: 'food', name: 'Masala Maggie with Vegies', price: 60, badgeClass: 'bl', badgeText: '🌙 Comfort', emoji: '🍜', img: 'masala_maggie.png', desc: 'Extra masala, loaded veggies & a squeeze of lime. The ultimate street food comfort bowl!', grad: 'linear-gradient(135deg,#FFF4DC,#FFD595)' },
+  { id: 7, cat: 'drinks', name: 'Cold Coffee', price: 60, badgeClass: 'bh', badgeText: '🔥 Chilled', emoji: '☕', img: 'cold_coffee.png', desc: 'Rich blended cold coffee with double espresso shot, topped with dreamy whipped cream.', grad: 'linear-gradient(135deg,#E4DCF8,#B8A4E8)' },
+  { id: 8, cat: 'drinks', name: 'Virgin Mojito', price: 60, badgeClass: 'bn', badgeText: '✨ Fresh', emoji: '🍹', img: 'virgin_mojito.png', desc: 'Super fresh mint lime mojito on crushed ice. Watermelon, lychee & classic mint variants!', grad: 'linear-gradient(135deg,#DCFAEC,#82E8AC)' },
+  { id: 9, cat: 'drinks', name: 'Shikanji', price: 30, badgeClass: 'bl', badgeText: '☀️ Zesty', emoji: '🍋', img: 'shikanji.png', desc: 'Traditional Indian lemonade with black salt, roasted cumin & fresh mint. Super refreshing!', grad: 'linear-gradient(135deg,#FFFDE0,#FFE07A)' },
+  { id: 10, cat: 'food', name: 'Peri-Peri Potato Spiral', price: 59, badgeClass: 'bn', badgeText: '✨ New Hit', emoji: '🌀', img: 'peri_peri_spiral.png', desc: 'Whole potato twisted on a stick, fried and dusted with zingy masala & cheese powder blast.', grad: 'linear-gradient(135deg,#FFE8D4,#FFB87A)' },
 ];
 
 export default function App() {
@@ -24,6 +25,23 @@ export default function App() {
   const [formErrors, setFormErrors] = useState({ name: false, phone: false });
   const curRef = useRef(null);
   const curRRef = useRef(null);
+
+  useEffect(() => {
+    const obs = new IntersectionObserver(es => {
+      es.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+    
+    const tm = setTimeout(() => {
+      document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    }, 100);
+
+    return () => {
+      clearTimeout(tm);
+      obs.disconnect();
+    };
+  }, [activeCategory]);
 
   useEffect(() => {
     let mx = 0, my = 0, rx = 0, ry = 0;
@@ -52,16 +70,6 @@ export default function App() {
 
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
-
-    const obs = new IntersectionObserver(es => {
-      es.forEach(e => {
-        if (e.isIntersecting) e.target.classList.add('visible');
-      });
-    }, { threshold: 0.1 });
-    
-    setTimeout(() => {
-      document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-    }, 500);
 
     return () => {
       document.removeEventListener('mousemove', handleMouseMove);
@@ -160,7 +168,7 @@ ${orderItems}
   const cartCnt = cart.reduce((s, i) => s + i.qty, 0);
 
   return (
-    <>
+    <div style={{ cursor: 'none' }}>
       <div id="cur" ref={curRef}></div>
       <div id="cur-r" ref={curRRef}></div>
 
@@ -171,11 +179,11 @@ ${orderItems}
 
       <nav id="nav" className={isScrolled ? 'sc' : ''}>
         <a href="#" className="nav-logo">
-          <img src="/logo.jpeg" alt="TVM Logo" style={{ width: 50, height: 50, borderRadius: 14, objectFit: 'cover' }} />
+          <img src={`${import.meta.env.BASE_URL}logo.jpeg`} alt="TVM Logo" style={{ width: 50, height: 50, borderRadius: 14, objectFit: 'cover' }} />
           <div className="logo-text">The Viral Munchies</div>
         </a>
         <ul className="nav-links">
-          <li><a href="#menu">Menu</a></li>
+          <li><Link to="/menu">Menu</Link></li>
           <li><a href="#about">About</a></li>
           <li><a href="#features">Why Us</a></li>
           <li><a href="#contact">Find Us</a></li>
@@ -199,7 +207,7 @@ ${orderItems}
             ))}
           </div>
           <div className="hero-btns">
-            <a href="#menu" className="btn-main">Order Now 🛒</a>
+            <Link to="/menu" className="btn-main">Order Now 🛒</Link>
             <a href="#about" className="btn-ghost">Our Story</a>
           </div>
         </div>
@@ -240,7 +248,7 @@ ${orderItems}
           {MENU_ITEMS.filter(c => activeCategory === 'all' || c.cat === activeCategory).map(item => (
             <div className="mc reveal" key={item.id}>
               <div className="mc-img" style={{ background: item.grad, padding: 0 }}>
-                <img src={item.img} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <img src={`${import.meta.env.BASE_URL}${item.img}`} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 <div className={`mc-badge ${item.badgeClass}`} style={{ zIndex: 1 }}>{item.badgeText}</div>
               </div>
               <div className="mc-body">
@@ -340,14 +348,14 @@ ${orderItems}
           <div className="loc-card"><div className="loc-icon">🕐</div><div className="loc-body"><div className="loc-label">Timings</div><h4>7:00 PM – 5:00 AM</h4><p>Open 7 Days a Week</p><span className="open-badge">🟢 Open Now</span></div></div>
         </div>
         <div style={{ textAlign: 'center', marginTop: 36 }} className="reveal">
-          <button className="btn-main" onClick={() => document.getElementById('menu').scrollIntoView({ behavior: 'smooth' })}>Order Now 🛒</button>
+          <Link to="/menu" className="btn-main">Order Now 🛒</Link>
         </div>
       </section>
 
       <footer>
         <div className="flogo">
-          <img src="/logo.jpeg" alt="TVM Logo" style={{ width: 42, height: 42, borderRadius: 12, objectFit: 'cover' }} />
-          <div className="flogo-text">The Viral Munchies</div>
+          <img src={`${import.meta.env.BASE_URL}logo.jpeg`} alt="TVM Logo" style={{ width: 42, height: 42, borderRadius: 12, objectFit: 'cover' }} />
+          <div className="flogo-text">The Viral Munchies<small>Street Food Stall</small></div>
         </div>
         <p style={{ marginTop: 6, color: 'rgba(255,255,255,.55)', fontSize: '.8rem' }}>Founded by <strong style={{ color: '#FFB800' }}>Nitin Mittal</strong> &amp; <strong style={{ color: '#FFB800' }}>Shivam Prajapati</strong></p>
         <p style={{ marginTop: 10 }}>© 2025 The Viral Munchies · Muzaffarnagar, UP · Made with <span>♥</span> &amp; extra masala</p>
@@ -427,6 +435,6 @@ ${orderItems}
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 }
